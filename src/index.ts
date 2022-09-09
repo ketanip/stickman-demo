@@ -34,6 +34,6 @@ app.use("/auth", authRouter);
 app.use("/notes", notesRouter);
 
 // Server.
-app.listen(3001, () => {
-    console.log(`Server active on http://localhost:3001/`);
+app.listen(config.PORT, () => {
+    console.log(`Server active on http://localhost:${config.PORT}/`);
 });
