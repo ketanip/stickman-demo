@@ -7,7 +7,7 @@
         "seed-db": "nodemon ./src/seed.ts",
         "dev": "nodemon ./src/index.ts",
         "start": "node dist/index.js",
-        "build": "tsc",
+        "build": "npx prisma generate & tsc",
         "postinstall": "npm run build"
     },
     "author": "Ketan Iralepatil",
