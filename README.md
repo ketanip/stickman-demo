@@ -1,6 +1,6 @@
 # stickman-demo
 
-This is backend API only.
+See demo: https://stickman-intern.herokuapp.com
 
 # Features
 JWT Auth.
