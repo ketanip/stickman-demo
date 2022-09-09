@@ -3,8 +3,11 @@ import { authController } from "../controllers";
 
 const router = Router();
 
+// With templates.
 router.get("/sign-in", authController.loginPageController);
-router.get("/sign-out", authController.loginOutController   );
-router.post("/sign-in", authController.loginController);
+
+// Functional ( no templates. )
+router.get("/sign-out", authController.logOutController   );
+router.post("/sign-in", authController.loginHandlerController);
 
 export default router;

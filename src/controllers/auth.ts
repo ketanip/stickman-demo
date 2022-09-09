@@ -1,7 +1,7 @@
 import { verifyPassword } from "../utils";
 import { findUniqueUser } from "../services";
-import { Request, Response, NextFunction } from "express";
 import { loginValidator } from "../validators";
+import { Request, Response, NextFunction } from "express";
 
 const loginPageController = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -13,8 +13,7 @@ const loginPageController = async (req: Request, res: Response, next: NextFuncti
 
 };
 
-
-const loginOutController = async (req: Request, res: Response, next: NextFunction) => {
+const logOutController = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
         req.session.user = undefined;
@@ -25,34 +24,40 @@ const loginOutController = async (req: Request, res: Response, next: NextFunctio
     };
 
 };
-const loginController = async (req: Request, res: Response, next: NextFunction) => {
+
+const loginHandlerController = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
 
+        // Data validation.
         const {error, value, warning} = loginValidator.validate(req.body, { stripUnknown: true});
         if (error) {
             res.render("login",{ message: error.message });
             return;
         };
 
+        // Getting data.
         const { email, password } = value;
-
+        
+        // Getting user.
         const user = await findUniqueUser({ email });
-
         if (!user) {
             res.render("login",{ message: "Invalid email" });
             return;
         };
 
+        // Checking password.
         const password_res = verifyPassword(password, user.password);
         if (!password_res) {
             res.render("login",{ message: "Invalid password" });
             return;
         };
 
+        // Setting user session.
         req.session.user = { user_id: user.id, role: user.role, user_email: user.email };
         
-        const redirect_link = user.role === "admin" ? "/notes/admin" : "/notes/user";
+        // Getting redirect link.
+        const redirect_link = user.role === "admin" ? "/dashboard/admin" : "/dashboard/user";
         res.redirect(redirect_link);
         return;
 
@@ -65,6 +70,6 @@ const loginController = async (req: Request, res: Response, next: NextFunction) 
 
 export {
     loginPageController,
-    loginController,
-    loginOutController
+    logOutController,
+    loginHandlerController,
 };

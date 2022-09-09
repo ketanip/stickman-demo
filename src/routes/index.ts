@@ -1,7 +1,7 @@
 import authRouter from "./auth";
-import notesRouter from "./notes";
+import dashboardRouter from "./dashboard";
 
 export {
     authRouter,
-    notesRouter,
+    dashboardRouter,
 };

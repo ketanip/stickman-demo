@@ -1,5 +1,5 @@
-import { Role } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
+import { Role } from "../types";
 
 const authenticate = (role: Role) => {
 
@@ -13,7 +13,7 @@ const authenticate = (role: Role) => {
         const user = req.session.user;
 
         if (role !== user.role) {
-            res.redirect("/auth/sign-in?error=401");
+            res.redirect("/auth/sign-in");
             return;
         };
 

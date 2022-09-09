@@ -1,18 +1,11 @@
-import { Prisma } from "@prisma/client";
 import { db } from "../db";
+import { UniqueUserArgs, User } from "../types";
 
-const findUniqueUser = (where: Prisma.UserWhereUniqueInput) => {
-    const user = db.user.findUnique({ where });
-    return user;
-};
-
-
-const updateUser = (where: Prisma.UserWhereUniqueInput, updated_data: Prisma.UserUpdateInput) => {
-    const user = db.user.update({ where, data: updated_data });
-    return user;
+const findUniqueUser = async (where: UniqueUserArgs) => {
+    const users = await db<User>("users").select("*").where(where).limit(1);
+    return users[0];
 };
 
 export {
     findUniqueUser,
-    updateUser
 };

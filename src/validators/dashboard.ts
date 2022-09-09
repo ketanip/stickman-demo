@@ -1,8 +1,7 @@
 import Joi from "joi";
 
-
-const getMemberActivatorValidator = Joi.object({
-    sort: Joi.string().allow("asc", "desc").default("asc"),
+const getMembersValidator = Joi.object({
+    sort: Joi.string().allow("first", "last").default("first"),
 });
 
 const addMemberValidator = Joi.object({
@@ -10,6 +9,6 @@ const addMemberValidator = Joi.object({
 });
 
 export {
-    getMemberActivatorValidator,
+    getMembersValidator,
     addMemberValidator,
-};
+}; 

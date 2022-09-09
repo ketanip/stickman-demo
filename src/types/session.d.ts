@@ -1,14 +1,13 @@
 import { Role } from "@prisma/client";
 
 export type SessionPayload = {
-    role: Role;
-    user_id: number;
-    user_email: string;
+  role: Role;
+  user_id: number;
+  user_email: string;
 };
 
 declare module 'express-session' {
-    interface SessionData {
-      user?: SessionPayload;
-    }
+  interface SessionData {
+    user?: SessionPayload;
   }
-  
+};

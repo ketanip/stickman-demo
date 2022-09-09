@@ -1,3 +1,11 @@
-import { PrismaClient } from "@prisma/client";
-const db = new PrismaClient();
+import knex from "knex";
+import config from "../config";
+
+const db = knex({
+    client: "postgresql",
+    connection: {
+        connectionString: config.DATABASE_URL,
+    }
+});
+
 export { db };
