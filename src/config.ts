@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config = {
-    JWT_SECRET: String(process.env.JWT_SECRET) || "JWT_SECRET",
+    SESSION_SECRET: String(process.env.SESSION_SECRET) || "SESSION_SECRET",
     SALT_ROUNDS: 11,
 };
 

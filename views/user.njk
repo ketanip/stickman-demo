@@ -1,0 +1,27 @@
+{% extends "parent.njk" %}
+
+
+{%block main%}
+
+    <div class="card">
+
+        <h2 class="card-title">User Dashboard</h2>
+
+        <form class="form" method="post" >
+
+            <p>Current Date: {{note}}</p>
+
+            <div class="form-field">
+                <span>Set Date</span>
+                <input type="date" name="note" id="note" class="form-input" default="{{note}}">
+            </div>
+
+            <button type="submit" class="btn">Submit</button>
+
+        </form>
+    </div>
+
+    {% include "partials/logout.njk" %}
+
+
+{%endblock main%}

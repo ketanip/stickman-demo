@@ -1,13 +1,11 @@
 import { Router } from "express";
 import { authenticate } from "../middlewares";
 import { notesController } from "../controllers";
-import { addNoteValidator, getNotesValidator } from "../validators";
-import { createValidator } from "express-joi-validation";
 
 const router = Router();
-const validator = createValidator();
 
-router.get("/", authenticate("admin"), validator.query(getNotesValidator), notesController.getNotesController);
-router.post("/", authenticate("user"), validator.body(addNoteValidator), notesController.submitNoteController);
+router.get("/admin", authenticate("admin"), notesController.getNotesController);
+router.get("/user", authenticate("user"), notesController.getSubmitNoteController);
+router.post("/user", authenticate("user"), notesController.submitNoteController);
 
 export default router;

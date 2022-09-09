@@ -1,0 +1,32 @@
+{% extends "parent.njk" %}
+
+{%block main%}
+    <div class="card card-lg">
+
+        <div class="header">
+            <h2 class="card-title">Admin Dashboard</h2>
+            <button class="btn header-btn" onclick="sortList()">Sort by latest updated</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>User Email</th>
+                    <th>Date Submitted</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.email}}</td>
+                        <td>{{user.note}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    {% include "partials/logout.njk" %}
+    
+{%endblock main%}

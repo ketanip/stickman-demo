@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { createValidator } from "express-joi-validation";
 import { authController } from "../controllers";
-import { loginValidator } from "../validators";
 
 const router = Router();
-const validator = createValidator();
 
-router.post("/sign-in", validator.body(loginValidator), authController.loginController);
+router.get("/sign-in", authController.loginPageController);
+router.get("/sign-out", authController.loginOutController   );
+router.post("/sign-in", authController.loginController);
 
 export default router;

@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    padding: 2% 0;
+}
+
+.btn {
+    padding: 8px 0;
+    background-color: #3498db;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    border: 0;
+    border-radius: 2px;
+}
+
+.btn:hover {
+    background-color: #85c1e9;
+}
+
+.card {
+    margin: 1em auto;
+    padding: 1em;
+    border-radius: 0.2em;
+    border: 2px solid #5d6d7e;
+    background-color: white;
+    max-width: 30%;
+}
+
+.card-lg {
+    max-width: 80%;
+}
+
+@media (max-width: 450px) {
+    .card {
+        max-width: 80%;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+}
+
+.card-title {
+    font-size: xx-large;
+    font-weight: 500;
+    text-decoration: underline;
+    margin: 0px 0px 15px 0px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+}
+
+.form-input {
+    padding: 5px 5px;
+}
+
+.header {
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+}
+
+.header h2 {
+    flex: 1;
+}
+
+.header-btn {
+    padding: 2px 8px;
+    max-height: fit-content;
+    background-color: #118a72;
+    font-weight: 600;
+}
+
+.header-btn:hover {
+    background-color: #20be9e;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 3px 5px;
+}
+
+th {
+    background-color: #117864;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #a1ecdd;
+}

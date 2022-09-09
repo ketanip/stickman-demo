@@ -1,15 +1,22 @@
+import {} from "../types";
 import { Request, Response, NextFunction } from "express";
-import { getUsersNotes, updateUser } from "../services";
-import { JWTPayload } from "../types";
+import { findUniqueUser, getUsersNotes, updateUser } from "../services";
+import { addNoteValidator, getNotesValidator } from "../validators";
 
 const getNotesController = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
 
-        const query: any = req.query;
+        const {error, value, warning} = getNotesValidator.validate(req.query, { stripUnknown: true});
+        if (error) {
+            res.render("user",{ message: error.message });
+            return;
+        };
+
+        const query: any = value;
         const sort = query.sort;
         const users = await getUsersNotes(sort);
-        res.json({ users });
+        res.render("admin", { users });
 
     } catch (error) {
         next(error);
@@ -21,10 +28,39 @@ const submitNoteController = async (req: Request, res: Response, next: NextFunct
 
     try {
 
-        const { note } = req.body;
-        const user: JWTPayload = res.locals.user;
-        await updateUser({ id: user.user_id }, { note });
-        res.json({ message: "Note set successfully." });
+        const {error, value, warning} = addNoteValidator.validate(req.body, { stripUnknown: true});
+        if (error) {
+            res.render("user",{ message: error.message });
+            return;
+        };
+
+        const { note } = value;
+        const user = req.session.user;
+        if (!user) {
+            res.redirect("/auth/sign-in");
+            return;
+        };
+
+        const updated_user = await updateUser({ id: user.user_id }, { note });
+        res.render("user", { note: updated_user.note, message: "Note set successfully." });
+
+    } catch (error) {
+        next(error);
+    };
+
+};
+
+const getSubmitNoteController = async (req: Request, res: Response, next: NextFunction) => {
+
+    try {
+        const user = req.session.user;
+        if (!user) {
+            res.redirect("/auth/sign-in");
+            return;
+        };
+
+        const data = await findUniqueUser({ id: user.user_id })
+        res.render("user", { note: data?.note });
 
     } catch (error) {
         next(error);
@@ -34,5 +70,6 @@ const submitNoteController = async (req: Request, res: Response, next: NextFunct
 
 export {
     getNotesController,
-    submitNoteController
+    submitNoteController,
+    getSubmitNoteController
 };
