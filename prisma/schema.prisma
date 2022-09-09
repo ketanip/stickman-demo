@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -16,11 +17,11 @@ enum Role {
 }
 
 model Member {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
   username  String?
-  visible   Boolean @default(false)
-  updatedAt DateTime @updatedAt @default(now())
+  visible   Boolean  @default(false)
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model User {
