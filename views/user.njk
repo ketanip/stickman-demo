@@ -9,11 +9,13 @@
 
         <form class="form" method="post" >
 
-            <p>Current Date: {{note}}</p>
-
             <div class="form-field">
-                <span>Set Date</span>
-                <input type="date" name="note" id="note" class="form-input" default="{{note}}">
+                <span>Select User</span>
+                <select name="member_id" id="member_id">
+                    {% for member in members %}
+                        <option value="{{member.id}}">{{member.name}}</option>
+                    {% endfor %}
+                </select>
             </div>
 
             <button type="submit" class="btn">Submit</button>

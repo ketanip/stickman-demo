@@ -1,22 +1,23 @@
-import {} from "../types";
+import { } from "../types";
 import { Request, Response, NextFunction } from "express";
-import { findUniqueUser, getUsersNotes, updateUser } from "../services";
-import { addNoteValidator, getNotesValidator } from "../validators";
+import { getMembers, updateMember } from "../services";
+import { addMemberValidator, getMemberActivatorValidator } from "../validators";
+import { db } from "../db";
 
 const getNotesController = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
 
-        const {error, value, warning} = getNotesValidator.validate(req.query, { stripUnknown: true});
+        const { error, value, warning } = getMemberActivatorValidator.validate(req.query, { stripUnknown: true });
         if (error) {
-            res.render("user",{ message: error.message });
+            res.render("user", { message: error.message });
             return;
         };
 
         const query: any = value;
         const sort = query.sort;
-        const users = await getUsersNotes(sort);
-        res.render("admin", { users });
+        const members = await getMembers(sort);
+        res.render("admin", { members });
 
     } catch (error) {
         next(error);
@@ -28,21 +29,22 @@ const submitNoteController = async (req: Request, res: Response, next: NextFunct
 
     try {
 
-        const {error, value, warning} = addNoteValidator.validate(req.body, { stripUnknown: true});
+        const { error, value, warning } = addMemberValidator.validate(req.body, { stripUnknown: true });
         if (error) {
-            res.render("user",{ message: error.message });
+            res.render("user", { message: error.message });
             return;
         };
 
-        const { note } = value;
+        const { member_id } = value;
         const user = req.session.user;
         if (!user) {
             res.redirect("/auth/sign-in");
             return;
         };
 
-        const updated_user = await updateUser({ id: user.user_id }, { note });
-        res.render("user", { note: updated_user.note, message: "Note set successfully." });
+        const updated_member = await updateMember({ id: member_id }, { visible: true, username: user.user_email });
+        const members = await db.member.findMany({ where: { visible: false } });
+        res.render("user", { message: "Member set successfully.", members });
 
     } catch (error) {
         next(error);
@@ -59,8 +61,8 @@ const getSubmitNoteController = async (req: Request, res: Response, next: NextFu
             return;
         };
 
-        const data = await findUniqueUser({ id: user.user_id })
-        res.render("user", { note: data?.note });
+        const members = await db.member.findMany({ where: { visible: false } });
+        res.render("user", { members });
 
     } catch (error) {
         next(error);

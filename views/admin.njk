@@ -11,15 +11,17 @@
         <table>
             <thead>
                 <tr>
-                    <th>User Email</th>
-                    <th>Date Submitted</th>
+                    <th>Member Name</th>
+                    <th>Submitted By</th>
+                    <th>Sumitted At</th>
                 </tr>
             </thead>
             <tbody>
-                {% for user in users %}
+                {% for member in members %}
                     <tr>
-                        <td>{{user.email}}</td>
-                        <td>{{user.note}}</td>
+                        <td>{{member.name}}</td>
+                        <td>{{member.username}}</td>
+                        <td>{{member.updatedAt}}</td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -1,15 +1,15 @@
 import Joi from "joi";
 
 
-const getNotesValidator = Joi.object({
+const getMemberActivatorValidator = Joi.object({
     sort: Joi.string().allow("asc", "desc").default("asc"),
 });
 
-const addNoteValidator = Joi.object({
-    note: Joi.string().required(),
+const addMemberValidator = Joi.object({
+    member_id: Joi.number().required(),
 });
 
 export {
-    getNotesValidator,
-    addNoteValidator,
+    getMemberActivatorValidator,
+    addMemberValidator,
 };
