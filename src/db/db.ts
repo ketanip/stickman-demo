@@ -5,6 +5,7 @@ const db = knex({
     client: "postgresql",
     connection: {
         connectionString: config.DATABASE_URL,
+        ssl: { rejectUnauthorized: false }
     }
 });
 
