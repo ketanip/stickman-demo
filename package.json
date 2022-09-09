@@ -6,9 +6,9 @@
     "scripts": {
         "seed-db": "nodemon ./src/seed.ts",
         "dev": "nodemon ./src/index.ts",
-        "start": "node dist/index.js",
-        "build": "tsc",
-        "postinstall": "prisma generate"
+        "start": "node dist/index.js"
+
+
     },
     "author": "Ketan Iralepatil",
     "license": "ISC",
