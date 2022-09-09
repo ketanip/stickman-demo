@@ -31,6 +31,7 @@ body {
     border: 2px solid #5d6d7e;
     background-color: white;
     max-width: 30%;
+    overflow-x:auto;
 }
 
 .card-lg {
